@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Claim {{ claim.claim_id }}{% endblock %}
+{% block content %}
+<div class="grid">
+  <section class="card">
+    <h2>Claim Details - {{ claim.claim_id }}</h2>
+    <div class="kv">
+      <div><strong>Patient:</strong> {{ claim.patient_name }}</div>
+      <div><strong>Discharge Date:</strong> {{ claim.discharge_date }}</div>
+      <div><strong>Billed Amount:</strong> ${{ claim.billed_amount }}</div>
+      <div><strong>Paid Amount:</strong> <span class="text-red">${{ claim.paid_amount }}</span></div>
+      <div><strong>Status:</strong>
+        <span id="status-badge">{% include "claims/partials/status_badge.html" with claim=claim %}</span>
+      </div>
+      <div><strong>Insurer:</strong> {{ claim.insurer }}</div>
+      <div><strong>CPT Codes:</strong>
+        {% for code in claim.cpt_list %}<span class="chip">{{ code }}</span>{% endfor %}
+      </div>
+      {% if claim.denial_reason %}
+      <div class="text-red"><strong>Denial Reason:</strong> {{ claim.denial_reason }}</div>
+      {% endif %}
+    </div>
+
+    <div class="actions">
+      <button class="btn outline"
+              hx-post="{% url 'claims:flag' claim.pk %}"
+              hx-target="#status-badge"
+              hx-swap="outerHTML">Flag for Review</button>
+
+      <a class="btn" href="{% url 'claims:report' claim.pk %}">Generate Report</a>
+    </div>
+  </section>
+
+  <aside class="card">
+    <h2>Notes & Annotations</h2>
+
+    <form class="note-form"
+          hx-post="{% url 'claims:add_note' claim.pk %}"
+          hx-target="#notes"
+          hx-swap="afterbegin">
+      {{ form.kind }}
+      {{ form.body }}
+      {% csrf_token %}
+      <button class="btn">Add Note</button>
+    </form>
+
+    <div id="notes">
+      {% for n in claim.notes.all %}
+        {% include "claims/partials/note_item.html" with n=n %}
+      {% empty %}
+        <div class="muted">No notes yet.</div>
+      {% endfor %}
+    </div>
+  </aside>
+</div>
+{% endblock %}

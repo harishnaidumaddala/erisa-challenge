@@ -1,0 +1,87 @@
+[
+  {
+    "model": "claims.claim",
+    "pk": 1,
+    "fields": {
+      "claim_id": 30001,
+      "patient_name": "Virginia Rhodes",
+      "billed_amount": "639787.37",
+      "paid_amount": "16001.57",
+      "status": "denied",
+      "insurer": "United Healthcare",
+      "discharge_date": "2022-12-18",
+      "cpt_codes": "99204,82947,99406",
+      "denial_reason": "Policy terminated before service date"
+    }
+  },
+  {
+    "model": "claims.claim",
+    "pk": 2,
+    "fields": {
+      "claim_id": 30002,
+      "patient_name": "Maria Chen",
+      "billed_amount": "3400.00",
+      "paid_amount": "0.00",
+      "status": "denied",
+      "insurer": "Aetna",
+      "discharge_date": "2023-07-15",
+      "cpt_codes": "80053",
+      "denial_reason": "Eligibility not found"
+    }
+  },
+  {
+    "model": "claims.claim",
+    "pk": 3,
+    "fields": {
+      "claim_id": 30003,
+      "patient_name": "Ravi Kumar",
+      "billed_amount": "5725.00",
+      "paid_amount": "2000.00",
+      "status": "review",
+      "insurer": "Cigna",
+      "discharge_date": "2023-06-29",
+      "cpt_codes": "70450,72148",
+      "denial_reason": ""
+    }
+  },
+  {
+    "model": "claims.claim",
+    "pk": 4,
+    "fields": {
+      "claim_id": 30004,
+      "patient_name": "Sarah Johnson",
+      "billed_amount": "2200.00",
+      "paid_amount": "2200.00",
+      "status": "paid",
+      "insurer": "Blue Cross Blue Shield",
+      "discharge_date": "2023-07-01",
+      "cpt_codes": "93000",
+      "denial_reason": ""
+    }
+  },
+  {
+    "model": "claims.claim",
+    "pk": 5,
+    "fields": {
+      "claim_id": 30005,
+      "patient_name": "Laura Martínez",
+      "billed_amount": "4000.00",
+      "paid_amount": "0.00",
+      "status": "denied",
+      "insurer": "Humana",
+      "discharge_date": "2023-07-18",
+      "cpt_codes": "11721",
+      "denial_reason": "Coverage limits exceeded"
+    }
+  },
+  {
+    "model": "claims.note",
+    "pk": 1,
+    "fields": { "claim": 1, "kind": "admin", "body": "Requires additional medical records for processing. Contacted provider." }
+  },
+  {
+    "model": "claims.note",
+    "pk": 2,
+    "fields": { "claim": 1, "kind": "system", "body": "Potential underpayment detected - review recommended." }
+  }
+]

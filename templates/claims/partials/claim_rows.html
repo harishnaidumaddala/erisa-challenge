@@ -1,0 +1,18 @@
+{% for c in claims %}
+<tr>
+  <td><a href="{% url 'claims:detail' c.pk %}">{{ c.claim_id }}</a></td>
+  <td>{{ c.patient_name }}</td>
+  <td>${{ c.billed_amount }}</td>
+  <td class="{{ c.paid_amount|floatformat:2|yesno:'text-green,text-red' }}">
+    ${{ c.paid_amount }}
+  </td>
+  <td>{% include "claims/partials/status_badge.html" with claim=c %}</td>
+  <td>{{ c.insurer }}</td>
+  <td>{{ c.discharge_date }}</td>
+  <td>
+    <a class="btn" href="{% url 'claims:detail' c.pk %}">View</a>
+  </td>
+</tr>
+{% empty %}
+<tr><td colspan="8" class="muted">No results.</td></tr>
+{% endfor %}

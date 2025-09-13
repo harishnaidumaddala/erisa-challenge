@@ -1,0 +1,7 @@
+{% if claim.status == 'denied' %}
+<span class="badge badge-red">Denied</span>
+{% elif claim.status == 'paid' %}
+<span class="badge badge-green">Paid</span>
+{% else %}
+<span class="badge badge-blue">Under Review</span>
+{% endif %}

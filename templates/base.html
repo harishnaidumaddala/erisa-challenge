@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" x-data>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+   {% load static %}
+  <title>{% block title %}Claims{% endblock %}</title>
+  <!-- Minimal styling; keep simple -->
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  <!-- HTMX + Alpine.js (CDN is fine for this challenge) -->
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <h1>Claims Management System</h1>
+    </div>
+  </header>
+  <main class="container">
+    {% if messages %}
+  <div class="card">
+    {% for m in messages %}<div class="muted">{{ m }}</div>{% endfor %}
+  </div>
+{% endif %}
+<div class="card" style="padding:.5rem 1rem;margin-top:.5rem">
+  {% if request.user.is_authenticated %}
+    Signed in as <strong>{{ request.user.username }}</strong> ·
+    <a href="{% url 'logout' %}">Logout</a> ·
+    <a href="{% url 'claims:admin_dashboard' %}">Admin Dashboard</a> ·
+    <a href="{% url 'claims:csv_upload' %}">Upload CSV</a>
+  {% else %}
+    <a href="{% url 'login' %}">Login</a>
+  {% endif %}
+</div>
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

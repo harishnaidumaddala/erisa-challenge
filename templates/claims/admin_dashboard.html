@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="grid">
+  <section class="card">
+    <h2>Overview</h2>
+    <div class="kv">
+      <div><strong>Total Claims:</strong> {{ total }}</div>
+      <div><strong>Paid:</strong> {{ paid }}</div>
+      <div><strong>Denied:</strong> {{ denied }}</div>
+      <div><strong>Flagged (Under Review):</strong> {{ review }}</div>
+      <div><strong>Avg Underpayment:</strong> ${{ avg_under }}</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Top Underpayments</h2>
+    <table class="table">
+      <thead><tr><th>Claim</th><th>Patient</th><th>Insurer</th><th>Underpayment</th></tr></thead>
+      <tbody>
+      {% for c in top_under %}
+        <tr>
+          <td><a href="{% url 'claims:detail' c.pk %}">{{ c.claim_id }}</a></td>
+          <td>{{ c.patient_name }}</td>
+          <td>{{ c.insurer }}</td>
+          <td>${{ c.billed_amount|floatformat:2|add:""|safe }} - ${{ c.paid_amount|floatformat:2 }} = ${{ c.u }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4" class="muted">No data.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+{% endblock %}

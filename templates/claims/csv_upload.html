@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+{% block title %}Upload CSV{% endblock %}
+{% block content %}
+<div class="card" style="max-width:720px;margin:1rem auto">
+  <h2>CSV Re-upload</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><label>List file (| delimited)<br>{{ form.list_file }}</label></p>
+    <p><label>Detail file (optional, | delimited)<br>{{ form.detail_file }}</label></p>
+    <p><label>Mode<br>{{ form.mode }}</label></p>
+    <button class="btn">Process</button>
+  </form>
+  <p class="muted" style="margin-top:.5rem">
+    Tip: In Excel, save as “CSV (Comma delimited)” won’t work for pipes. Use a text editor to ensure the delimiter is <code>|</code>.
+  </p>
+</div>
+{% endblock %}

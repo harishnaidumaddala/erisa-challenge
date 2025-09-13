@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Claims - List{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="row">
+    <input
+      class="input"
+      type="search"
+      name="q"
+      placeholder="Search claims…"
+      value="{{ term }}"
+      hx-get="{% url 'claims:search' %}"
+      hx-target="#claims-body"
+      hx-trigger="keyup changed delay:400ms"
+      hx-include="[name='status'], [name='insurer']"
+    />
+    <details class="filter">
+      <summary>Filter</summary>
+      <div class="filter-body">
+        <label>Status:
+          <select name="status"
+                  hx-get="{% url 'claims:search' %}"
+                  hx-target="#claims-body" hx-trigger="change">
+            <option value="">Any</option>
+            <option value="denied" {% if status == 'denied' %}selected{% endif %}>Denied</option>
+            <option value="review" {% if status == 'review' %}selected{% endif %}>Under Review</option>
+            <option value="paid" {% if status == 'paid' %}selected{% endif %}>Paid</option>
+          </select>
+        </label>
+        <label>Insurer:
+          <input list="insurers" name="insurer" value="{{ insurer_val }}"
+                 hx-get="{% url 'claims:search' %}"
+                 hx-target="#claims-body" hx-trigger="change delay:300ms">
+          <datalist id="insurers">
+            {% for i in insurers %}<option value="{{ i }}">{% endfor %}
+          </datalist>
+        </label>
+      </div>
+    </details>
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Claim ID</th><th>Patient</th><th>Billed</th><th>Paid</th><th>Status</th>
+      <th>Insurer</th><th>Discharge Date</th><th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="claims-body">
+      {% include "claims/partials/claim_rows.html" with claims=claims %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

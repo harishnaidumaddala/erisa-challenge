@@ -1,0 +1,8 @@
+<div class="note {% if n.kind == 'system' %}sys{% else %}admin{% endif %}">
+  <div class="note-title">
+    {{ n.get_kind_display }}
+    {% if n.created_by %} · by {{ n.created_by.username }}{% endif %}
+    <span class="muted">{{ n.created_at|timesince }} ago</span>
+  </div>
+  <div class="note-body">{{ n.body }}</div>
+</div>
