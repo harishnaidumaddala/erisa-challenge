@@ -4,7 +4,7 @@ A minimal, production-ready Django app for managing ERISA claims.
 Includes searchable/paginated claim lists, detail views, inline notes, CSV import, and a Render/Postgres deployment setup.
 
 ## Demo
-- **Live app:** https://erisa-challenge.onrender.com/
+- **Live app:** [https://erisa-challenge.onrender.com/](https://erisa-challenge-u683.onrender.com/)
 - **Public repo:** https://github.com/harishnaidumaddala/erisa-challenge
 
 > Create a regular demo user for reviewers (non-admin) and list it here once created.
